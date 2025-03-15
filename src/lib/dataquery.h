@@ -17,7 +17,7 @@ class DATAGATE_EXPORT DataQuery {
 public:
     DataQuery();
     DataQuery(const Jsoner::Object &object);
-    DataQuery(const Jsoner::Array &objects);
+    DataQuery(const Jsoner::Array &array);
     DataQuery(const DataQuery &other);
     ~DataQuery();
 

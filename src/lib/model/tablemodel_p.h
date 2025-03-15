@@ -1,13 +1,13 @@
-#ifndef DATAGATE_DATATABLEMODEL_P_H
-#define DATAGATE_DATATABLEMODEL_P_H
+#ifndef DATAGATE_TABLEMODEL_P_H
+#define DATAGATE_TABLEMODEL_P_H
 
-#include "datatablemodel.h"
+#include "tablemodel.h"
 
 #include <DataGate/dataquery.h>
 
 namespace DataGate {
 
-class DataTableModelPrivate
+class TableModelPrivate
 {
 public:
     QString sortField;
@@ -20,4 +20,4 @@ public:
 
 } // namespace DataGate
 
-#endif // DATAGATE_DATATABLEMODEL_P_H
+#endif // DATAGATE_TABLEMODEL_P_H

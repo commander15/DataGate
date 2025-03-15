@@ -31,10 +31,10 @@ DataQuery::DataQuery(const Jsoner::Object &object)
     d_ptr->array.append(object);
 }
 
-DataQuery::DataQuery(const Jsoner::Array &objects)
+DataQuery::DataQuery(const Jsoner::Array &array)
     : d_ptr(new DataQueryData)
 {
-    d_ptr->array = objects;
+    d_ptr->array = array;
 }
 
 DataQuery::DataQuery(const DataQuery &other) = default;

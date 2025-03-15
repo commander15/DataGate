@@ -1,5 +1,5 @@
-#ifndef DATAGATE_DATATABLEMODEL_H
-#define DATAGATE_DATATABLEMODEL_H
+#ifndef DATAGATE_TABLEMODEL_H
+#define DATAGATE_TABLEMODEL_H
 
 #include <DataGate/global.h>
 #include <DataGate/abstractdatacontroller.h>
@@ -10,14 +10,14 @@ namespace DataGate {
 
 class DataQuery;
 
-class DataTableModelPrivate;
-class DATAGATE_EXPORT DataTableModel : public Jsoner::TableModel
+class TableModelPrivate;
+class DATAGATE_EXPORT TableModel : public Jsoner::TableModel
 {
     Q_OBJECT
 
 public:
-    explicit DataTableModel(QObject *parent = nullptr);
-    virtual ~DataTableModel();
+    explicit TableModel(QObject *parent = nullptr);
+    virtual ~TableModel();
 
     QString query() const;
     void setQuery(const QString &query);
@@ -55,9 +55,9 @@ signals:
     void finished(const DataResponse &response);
 
 private:
-    QScopedPointer<DataTableModelPrivate> d_ptr;
+    QScopedPointer<TableModelPrivate> d_ptr;
 };
 
 } // namespace DataGate
 
-#endif // DATAGATE_DATATABLEMODEL_H
+#endif // DATAGATE_TABLEMODEL_H
