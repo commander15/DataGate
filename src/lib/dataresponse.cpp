@@ -12,9 +12,12 @@ class DataResponseData : public QSharedData
 {
 public:
     int code = 0;
+
+    QString title;
     QString text;
     QString informativeText;
     QString detailedText;
+
     Jsoner::Array array;
     int page = 1;
     int pageCount = 1;
@@ -50,6 +53,16 @@ int DataResponse::code() const
 void DataResponse::setCode(int code)
 {
     d_ptr->code = code;
+}
+
+QString DataResponse::title() const
+{
+    return d_ptr->title;
+}
+
+void DataResponse::setTitle(const QString &title)
+{
+    d_ptr->title = title;
 }
 
 QString DataResponse::text() const

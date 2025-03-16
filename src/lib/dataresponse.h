@@ -25,6 +25,9 @@ public:
     int code() const;
     void setCode(int code);
 
+    QString title() const;
+    void setTitle(const QString &title);
+
     QString text() const;
     void setText(const QString &text);
 
