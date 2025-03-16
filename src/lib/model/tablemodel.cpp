@@ -94,6 +94,11 @@ void TableModel::setParameters(const QVariantHash &parameters)
     d_ptr->query.setParameters(parameters);
 }
 
+DataQuery TableModel::dataQuery() const
+{
+    return d_ptr->query;
+}
+
 AbstractDataController *TableModel::controller() const
 {
     return d_ptr->controller;

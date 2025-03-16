@@ -42,6 +42,8 @@ public:
     QVariantHash parameters() const;
     void setParameters(const QVariantHash &parameters);
 
+    DataQuery dataQuery() const;
+
     AbstractDataController *controller() const;
     void setController(AbstractDataController *controller);
 
