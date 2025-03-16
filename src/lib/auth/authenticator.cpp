@@ -7,7 +7,7 @@ namespace DataGate {
 
 Authenticator::Authenticator(QObject *parent)
     : QObject(parent)
-    , d_ptr(new AuthenticatorPrivate())
+    , d_ptr(new AuthenticatorPrivate(this))
 {
 }
 

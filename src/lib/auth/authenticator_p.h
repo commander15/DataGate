@@ -12,6 +12,8 @@ namespace DataGate {
 class AuthenticatorPrivate
 {
 public:
+    AuthenticatorPrivate(Authenticator *q) : q_ptr(q) {}
+
     Authenticator *q_ptr;
 
     Jsoner::Object loggedUser;
