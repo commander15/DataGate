@@ -1,2 +1,3 @@
 # DataGate
- C++ library that act as a bridge between Widgetry and data sources
+
+Data handling toolkit for Qt

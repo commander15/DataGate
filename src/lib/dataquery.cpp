@@ -104,7 +104,7 @@ int DataQuery::page() const
 
 void DataQuery::setPage(int page)
 {
-    d_ptr->page = page;
+    d_ptr->page = (page > 0 ? page : 1);
 }
 
 Jsoner::Object DataQuery::object() const

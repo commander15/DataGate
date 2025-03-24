@@ -19,6 +19,8 @@ public:
     QString detailedText;
 
     Jsoner::Array array;
+    bool singleObject = false;
+
     int page = 1;
     int pageCount = 1;
     QVariantHash dataHash;
@@ -95,6 +97,16 @@ void DataResponse::setDetailedText(const QString &text)
     d_ptr->detailedText = text;
 }
 
+bool DataResponse::hasMessage() const
+{
+    return !d_ptr->title.isEmpty() || !d_ptr->text.isEmpty();
+}
+
+bool DataResponse::hasObject() const
+{
+    return !d_ptr->array.isEmpty() && d_ptr->singleObject ? d_ptr->array.first().isObject() : false;
+}
+
 Jsoner::Object DataResponse::object() const
 {
     return (!d_ptr->array.isEmpty() ? Jsoner::Object(d_ptr->array.first()) : Jsoner::Object());
@@ -103,6 +115,12 @@ Jsoner::Object DataResponse::object() const
 void DataResponse::setObject(const Jsoner::Object &object)
 {
     d_ptr->array = Jsoner::Array({object});
+    d_ptr->singleObject = true;
+}
+
+bool DataResponse::hasArray() const
+{
+    return !d_ptr->singleObject && !d_ptr->array.isEmpty();
 }
 
 Jsoner::Array DataResponse::array() const
@@ -113,6 +131,7 @@ Jsoner::Array DataResponse::array() const
 void DataResponse::setArray(const Jsoner::Array &array)
 {
     d_ptr->array = array;
+    d_ptr->singleObject = false;
 }
 
 int DataResponse::page() const
@@ -133,6 +152,11 @@ int DataResponse::pageCount() const
 void DataResponse::setPageCount(int count)
 {
     d_ptr->pageCount = count;
+}
+
+bool DataResponse::hasPaginationData() const
+{
+    return d_ptr->page > 0 && d_ptr->pageCount > 0;
 }
 
 bool DataResponse::hasData(const QString &name) const

@@ -1,27 +1,33 @@
+# Core library
 add_subdirectory(lib)
+
+# CMake Packaging
 
 include(CMakePackageConfigHelpers)
 
-set(ROOT .)
+set(PACKAGE_NAME    DataGate)
+set(PACKAGE_VERSION ${PROJECT_VERSION})
+set(PACKAGE_ROOT    .)
 
-configure_package_config_file(DataGateConfig.cmake.in DataGateConfig.cmake
-    PATH_VARS ROOT
-    INSTALL_DESTINATION lib/cmake/DataGate
+configure_package_config_file(${PACKAGE_NAME}Config.cmake.in ${PACKAGE_NAME}Config.cmake
+    PATH_VARS PACKAGE_ROOT
+    INSTALL_DESTINATION lib/cmake/${PACKAGE_NAME}
 )
 
-write_basic_package_version_file(DataGateConfigVersion.cmake
-    VERSION ${DataGate_VERSION}
+write_basic_package_version_file(${PACKAGE_NAME}ConfigVersion.cmake
+    VERSION ${PACKAGE_VERSION}
     COMPATIBILITY AnyNewerVersion
     ARCH_INDEPENDENT
 )
 
 install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/DataGateConfig.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/DataGateConfigVersion.cmake
-    DESTINATION lib/cmake/DataGate
+    ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_NAME}Config.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_NAME}ConfigVersion.cmake
+    DESTINATION lib/cmake/${PACKAGE_NAME}
 )
 
 install(EXPORT DataGateTargets
-    NAMESPACE DataGate::
-    DESTINATION lib/cmake/DataGate
+    NAMESPACE ${PACKAGE_NAME}::
+    FILE ${PACKAGE_NAME}Targets.cmake
+    DESTINATION lib/cmake/${PACKAGE_NAME}
 )

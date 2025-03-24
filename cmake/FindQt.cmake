@@ -52,6 +52,7 @@ if (Qt_FOUND)
 
     if (QT_VERSION VERSION_GREATER_EQUAL 6 AND Qt6Qml_FOUND)
         qt_policy(SET QTP0001 NEW)
+        qt_policy(SET QTP0003 NEW)
     endif()
 else()
     # 404 ;)

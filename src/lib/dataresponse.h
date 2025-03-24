@@ -37,9 +37,13 @@ public:
     QString detailedText() const;
     void setDetailedText(const QString &text);
 
+    bool hasMessage() const;
+
+    bool hasObject() const;
     Jsoner::Object object() const;
     void setObject(const Jsoner::Object &object);
 
+    bool hasArray() const;
     Jsoner::Array array() const;
     void setArray(const Jsoner::Array &array);
 
@@ -48,6 +52,8 @@ public:
 
     int pageCount() const;
     void setPageCount(int count);
+
+    bool hasPaginationData() const;
 
     bool hasData(const QString &name) const;
     QVariant data(const QString &name) const;
