@@ -72,6 +72,8 @@ public:
     static void init(Args&&... args)
     { global()->setLoginController(new LoginController(std::forward<Args>(args)...)); }
 
+    static void init(AbstractLoginController *controller);
+
     static Jsoner::Object loggedUser();
     static QDateTime lastLogInTime();
 
@@ -86,7 +88,8 @@ public slots:
 
 signals:
     void loggedIn(const Jsoner::Object &user);
-    void logInFailed(const AuthenticationError &error);
+    void logInFailed(const DataGate::AuthenticationError &error);
+
     void loggedOut();
 
 private:

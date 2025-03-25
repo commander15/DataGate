@@ -15,6 +15,11 @@ Authenticator::~Authenticator()
 {
 }
 
+void Authenticator::init(AbstractLoginController *controller)
+{
+    global()->setLoginController(controller);
+}
+
 Jsoner::Object Authenticator::loggedUser()
 {
     return self()->loggedUser;
@@ -75,9 +80,8 @@ void Authenticator::logOut()
 
 void Authenticator::processLogInResponse(const DataResponse &response)
 {
-    AuthenticatorPrivate *self = Authenticator::self();
-
     if (response.isSuccess()) {
+        AuthenticatorPrivate *self = Authenticator::self();
         self->loggedUser = response.object();
         self->lastLogTime = QDateTime::currentDateTime();
         emit loggedIn(self->loggedUser);
@@ -92,7 +96,14 @@ void Authenticator::processLogInResponse(const DataResponse &response)
 
 void Authenticator::processLogOutResponse(const DataResponse &response)
 {
-    //
+    if (!response.isSuccess()) {
+        qDebug("Something gone wrong during logout !");
+    }
+
+    AuthenticatorPrivate *self = Authenticator::self();
+    self->loggedUser = Jsoner::Object();
+    self->lastLogTime = QDateTime();
+    emit loggedOut();
 }
 
 AuthenticatorPrivate *Authenticator::self()
