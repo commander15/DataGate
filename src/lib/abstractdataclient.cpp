@@ -4,9 +4,9 @@
 
 namespace DataGate {
 
-bool AbstractDataClient::hasProperty(const QString &name) const
+bool AbstractDataClient::hasParameter(const QString &name) const
 {
-    return property(name).isValid();
+    return parameter(name).isValid();
 }
 
 DataQuery AbstractDataClient::newQuery()
