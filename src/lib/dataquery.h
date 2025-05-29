@@ -12,6 +12,8 @@ class Array;
 
 namespace DataGate {
 
+class AbstractDataClient;
+
 class DataQueryData;
 class DATAGATE_EXPORT DataQuery {
 public:
@@ -50,6 +52,9 @@ public:
 
     QVariantHash parameters() const;
     void setParameters(const QVariantHash &parameters);
+
+    AbstractDataClient *client() const;
+    void setClient(AbstractDataClient *client);
 
 private:
     QSharedDataPointer<DataQueryData> d_ptr;

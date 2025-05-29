@@ -18,6 +18,7 @@ public:
     int page = 1;
     Jsoner::Array array;
     QVariantHash parameters;
+    AbstractDataClient *client = nullptr;
 };
 
 DataQuery::DataQuery()
@@ -95,6 +96,16 @@ QVariantHash DataQuery::parameters() const
 void DataQuery::setParameters(const QVariantHash &parameters)
 {
     d_ptr->parameters = parameters;
+}
+
+AbstractDataClient *DataQuery::client() const
+{
+    return d_ptr->client;
+}
+
+void DataQuery::setClient(AbstractDataClient *client)
+{
+    d_ptr->client = client;
 }
 
 int DataQuery::page() const

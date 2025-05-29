@@ -6,6 +6,7 @@ target_headers(DataGate
     PUBLIC
         datagate.h
         global.h config.h
+        abstractdataclient.h
         abstractdatacontroller.h dataquery.h dataresponse.h
         auth/authenticator.h auth/abstractlogincontroller.h
         permission/permissionmanager.h
@@ -19,6 +20,7 @@ target_headers(DataGate
 target_sources(DataGate
     PRIVATE
         debug.cpp
+        abstractdataclient.cpp
         abstractdatacontroller.cpp dataquery.cpp dataresponse.cpp
         auth/authenticator.cpp auth/abstractlogincontroller.cpp
         permission/permissionmanager.cpp
