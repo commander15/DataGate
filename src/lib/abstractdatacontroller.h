@@ -7,6 +7,7 @@
 
 namespace DataGate {
 
+class AbstractDataClient;
 class DataQuery;
 class DataResponse;
 
@@ -16,8 +17,22 @@ typedef std::function<void(const DataResponse &response)> DataQueryResponseCallb
 class DATAGATE_EXPORT AbstractDataController
 {
 public:
+    enum Feature {
+        SearchByKeywordsSearch,
+        SearchByFilters,
+        SearchSuggestion,
+        PaginatedResults,
+        SortedResults,
+        FetchObjectDetails,
+        CreateObject,
+        UpdateObject,
+        DeleteObjects
+    };
+
     explicit AbstractDataController();
     virtual ~AbstractDataController();
+
+    virtual bool hasFeature(Feature feature, AbstractDataClient *client) const;
 
     void fetchSearchSuggestions(const DataQuery &query, const DataQueryResponseCallback &onResponse);
     void fetchSearchSuggestions(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
@@ -42,7 +57,7 @@ public:
 protected:
     virtual void fetchSomeSearchSuggestions(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
     virtual void fetchManyObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
-    virtual void fetchOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
+    virtual void fetchOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
     virtual void addOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
     virtual void editOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
     virtual void deleteManyObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;

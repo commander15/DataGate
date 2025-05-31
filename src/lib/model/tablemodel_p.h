@@ -10,9 +10,6 @@ namespace DataGate {
 class TableModelPrivate
 {
 public:
-    QString sortField;
-    Qt::SortOrder sortOrder = Qt::DescendingOrder;
-
     DataQuery query;
     bool running = false;
     AbstractDataController *controller = AbstractDataController::instance();

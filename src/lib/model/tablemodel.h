@@ -49,12 +49,12 @@ public:
 
 public slots:
     void get();
-    void get(const DataQuery &query);
+    void get(const DataGate::DataQuery &query);
 
 signals:
     void fetchRequested();
     void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
-    void finished(const DataResponse &response);
+    void finished(const DataGate::DataResponse &response);
 
 private:
     QScopedPointer<TableModelPrivate> d_ptr;
