@@ -2,7 +2,7 @@
 #define DATAGATE_ABSTRACTLOGINCONTROLLER_H
 
 #include <DataGate/global.h>
-#include <DataGate/abstractdatacontroller.h>
+#include <DataGate/abstractdatamanager.h>
 #include <DataGate/dataquery.h>
 #include <DataGate/dataresponse.h>
 
@@ -23,11 +23,10 @@ public:
     void setPassword(const QString &pass) { setParameter("password", pass); }
 };
 
-class DATAGATE_EXPORT AbstractLoginController
+class DATAGATE_EXPORT AbstractLoginManager
 {
 public:
-    explicit AbstractLoginController() = default;
-    virtual ~AbstractLoginController() = default;
+    virtual ~AbstractLoginManager() = default;
 
     void logIn(const QString &identifier, const QString &password, const DataQueryResponseCallback &callback);
     void logIn(const LoginQuery &query, const DataQueryResponseCallback &callback);

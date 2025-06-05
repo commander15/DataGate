@@ -19,7 +19,7 @@ public:
     Jsoner::Object loggedUser;
     QDateTime lastLogTime;
 
-    AbstractLoginController *loginController;
+    AbstractLoginManager *loginController;
 };
 
 } // namespace DataGate

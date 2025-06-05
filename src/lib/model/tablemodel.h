@@ -2,7 +2,7 @@
 #define DATAGATE_TABLEMODEL_H
 
 #include <DataGate/global.h>
-#include <DataGate/abstractdatacontroller.h>
+#include <DataGate/abstractdatamanager.h>
 
 #include <Jsoner/tablemodel.h>
 
@@ -44,8 +44,8 @@ public:
 
     DataQuery dataQuery() const;
 
-    AbstractDataController *controller() const;
-    void setController(AbstractDataController *controller);
+    AbstractDataManager *manager() const;
+    void setManager(AbstractDataManager *controller);
 
 public slots:
     void get();

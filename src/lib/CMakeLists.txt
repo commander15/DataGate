@@ -7,8 +7,9 @@ target_headers(DataGate
         datagate.h
         global.h config.h
         abstractdataclient.h
-        abstractdatacontroller.h dataquery.h dataresponse.h
-        auth/authenticator.h auth/abstractlogincontroller.h
+        abstractdatamanager.h dataquery.h dataresponse.h
+        datamanager.h
+        auth/authenticator.h auth/abstractloginmanager.h
         permission/permissionmanager.h
         model/tablemodel.h
     PRIVATE
@@ -21,8 +22,9 @@ target_sources(DataGate
     PRIVATE
         debug.cpp
         abstractdataclient.cpp
-        abstractdatacontroller.cpp dataquery.cpp dataresponse.cpp
-        auth/authenticator.cpp auth/abstractlogincontroller.cpp
+        abstractdatamanager.cpp dataquery.cpp dataresponse.cpp
+        datamanager.cpp
+        auth/authenticator.cpp auth/abstractloginmanager.cpp
         permission/permissionmanager.cpp
         model/tablemodel.cpp
 )
@@ -48,6 +50,8 @@ target_compile_definitions(DataGate
 )
 
 target_link_libraries(DataGate PUBLIC Qt::Core Jsoner::Jsoner)
+
+install(CODE "file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/include/DataGate)")
 
 install(TARGETS DataGate
     EXPORT DataGateTargets

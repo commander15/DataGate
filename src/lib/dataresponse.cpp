@@ -21,8 +21,8 @@ public:
     Jsoner::Array array;
     bool singleObject = false;
 
-    int page = 1;
-    int pageCount = 1;
+    int page = 0;
+    int pageCount = 0;
     QVariantHash dataHash;
     bool success = false;
 };

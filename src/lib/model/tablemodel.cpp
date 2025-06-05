@@ -99,14 +99,14 @@ DataQuery TableModel::dataQuery() const
     return d_ptr->query;
 }
 
-AbstractDataController *TableModel::controller() const
+AbstractDataManager *TableModel::manager() const
 {
-    return d_ptr->controller;
+    return d_ptr->manager;
 }
 
-void TableModel::setController(AbstractDataController *controller)
+void TableModel::setManager(AbstractDataManager *controller)
 {
-    d_ptr->controller = controller;
+    d_ptr->manager = controller;
 }
 
 void TableModel::get()
@@ -118,12 +118,12 @@ void TableModel::get(const DataQuery &query)
 {
     d_ptr->query = query;
 
-    if (!d_ptr->controller || d_ptr->running)
+    if (!d_ptr->manager || d_ptr->running)
         return;
 
     d_ptr->running = true;
 
-    d_ptr->controller->fetchObjects(query, [this](qint64 current, qint64 total) {
+    d_ptr->manager->fetchObjects(query, [this](qint64 current, qint64 total) {
         emit downloadProgress(current, total);
     }, [this](const DataResponse &response) {
         if (response.isSuccess())

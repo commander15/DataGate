@@ -1,7 +1,7 @@
 #include "authenticator.h"
 #include "authenticator_p.h"
 
-#include <DataGate/abstractlogincontroller.h>
+#include <DataGate/abstractloginmanager.h>
 
 namespace DataGate {
 
@@ -15,7 +15,7 @@ Authenticator::~Authenticator()
 {
 }
 
-void Authenticator::init(AbstractLoginController *controller)
+void Authenticator::init(AbstractLoginManager *controller)
 {
     global()->setLoginController(controller);
 }
@@ -30,12 +30,12 @@ QDateTime Authenticator::lastLogInTime()
     return self()->lastLogTime;
 }
 
-AbstractLoginController *Authenticator::loginController()
+AbstractLoginManager *Authenticator::loginController()
 {
     return self()->loginController;
 }
 
-void Authenticator::setLoginController(AbstractLoginController *controller)
+void Authenticator::setLoginController(AbstractLoginManager *controller)
 {
     self()->loginController = controller;
 }
@@ -49,7 +49,7 @@ void Authenticator::logIn(const QString &id, const QString &pass)
 {
     AuthenticatorPrivate *self = Authenticator::self();
 
-    AbstractLoginController *controller = self->loginController;
+    AbstractLoginManager *controller = self->loginController;
     if (!controller)
         return;
 
@@ -66,7 +66,7 @@ void Authenticator::logOut()
 {
     AuthenticatorPrivate *self = Authenticator::self();
 
-    AbstractLoginController *controller = self->loginController;
+    AbstractLoginManager *controller = self->loginController;
     if (!controller)
         return;
 

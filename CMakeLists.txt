@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.30)
 
 project(DataGate
     DESCRIPTION "Data handling toolkit for Qt"
-    VERSION     "1.0.0"
+    VERSION     "2.0.0"
     LANGUAGES   CXX C
 )
 

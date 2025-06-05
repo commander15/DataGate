@@ -49,7 +49,7 @@ QStringList PermissionManager::availablePermissions()
 void PermissionManager::updatePermissions(const QStringList &permissions)
 {
     s_permissions = permissions;
-    //s_permissions.removeDuplicates();
+    s_permissions.removeDuplicates();
 }
 
 void PermissionManager::load(const Jsoner::Array &permissions)

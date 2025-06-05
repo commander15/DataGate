@@ -12,7 +12,7 @@ class TableModelPrivate
 public:
     DataQuery query;
     bool running = false;
-    AbstractDataController *controller = AbstractDataController::instance();
+    AbstractDataManager *manager = nullptr;
 };
 
 } // namespace DataGate

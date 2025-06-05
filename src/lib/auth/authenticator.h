@@ -14,7 +14,7 @@ class QDateTime;
 
 namespace DataGate {
 
-class AbstractLoginController;
+class AbstractLoginManager;
 class DataResponse;
 
 class DATAGATE_EXPORT AuthenticationError
@@ -70,15 +70,15 @@ public:
 
     template<typename LoginController, typename... Args>
     static void init(Args&&... args)
-    { global()->setLoginController(new LoginController(std::forward<Args>(args)...)); }
+    { init(new LoginController(std::forward<Args>(args)...)); }
 
-    static void init(AbstractLoginController *controller);
+    static void init(AbstractLoginManager *controller);
 
     static Jsoner::Object loggedUser();
     static QDateTime lastLogInTime();
 
-    static AbstractLoginController *loginController();
-    static void setLoginController(AbstractLoginController *controller);
+    static AbstractLoginManager *loginController();
+    static void setLoginController(AbstractLoginManager *controller);
 
     static Authenticator *global();
 
