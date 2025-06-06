@@ -58,7 +58,7 @@ qt_policy(SET QTP0002 NEW)
 qt_policy(SET QTP0003 NEW)
 
 # Other dependencies
-find_package(Jsoner REQUIRED)
+include(cmake/Dependencies.cmake)
 
 # Project directories
 
