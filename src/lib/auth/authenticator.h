@@ -31,13 +31,17 @@ public:
         UnknownError
     };
 
-    AuthenticationError(ErrorType error = NoError) : m_error(error) {}
+    AuthenticationError(ErrorType type = NoError) : m_text(textFromType(type)), m_type(type) {}
+    AuthenticationError(const QString &text, ErrorType type) : m_text(text.isEmpty() ? textFromType(type) : text), m_type(type) {}
+    AuthenticationError(const AuthenticationError &other) = default;
 
-    ErrorType error() const { return m_error; }
+    QString text() const { return m_text; }
+    ErrorType type() const { return m_type; }
+    bool isValid() const { return m_type != NoError; }
 
-    QString errorString() const
+    static QString textFromType(ErrorType error)
     {
-        switch (m_error) {
+        switch (error) {
         case NoError:
             return QString();
 
@@ -57,7 +61,8 @@ public:
     }
 
 private:
-    ErrorType m_error;
+    QString m_text;
+    ErrorType m_type;
 };
 
 class AuthenticatorPrivate;
@@ -70,15 +75,13 @@ public:
 
     template<typename LoginController, typename... Args>
     static void init(Args&&... args)
-    { init(new LoginController(std::forward<Args>(args)...)); }
-
-    static void init(AbstractLoginManager *controller);
+    { setLoginController(new LoginController(std::forward<Args>(args)...), true); }
 
     static Jsoner::Object loggedUser();
     static QDateTime lastLogInTime();
 
     static AbstractLoginManager *loginController();
-    static void setLoginController(AbstractLoginManager *controller);
+    static void setLoginController(AbstractLoginManager *controller, bool own = false);
 
     static Authenticator *global();
 
@@ -89,7 +92,6 @@ public slots:
 signals:
     void loggedIn(const Jsoner::Object &user);
     void logInFailed(const DataGate::AuthenticationError &error);
-
     void loggedOut();
 
 private:

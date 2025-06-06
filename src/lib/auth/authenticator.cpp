@@ -13,11 +13,9 @@ Authenticator::Authenticator(QObject *parent)
 
 Authenticator::~Authenticator()
 {
-}
-
-void Authenticator::init(AbstractLoginManager *controller)
-{
-    global()->setLoginController(controller);
+    AuthenticatorPrivate *d = self();
+    if (d->controllerOwned)
+        delete d->loginController;
 }
 
 Jsoner::Object Authenticator::loggedUser()
@@ -35,9 +33,11 @@ AbstractLoginManager *Authenticator::loginController()
     return self()->loginController;
 }
 
-void Authenticator::setLoginController(AbstractLoginManager *controller)
+void Authenticator::setLoginController(AbstractLoginManager *controller, bool own)
 {
-    self()->loginController = controller;
+    AuthenticatorPrivate *d = self();
+    d->loginController = controller;
+    d->controllerOwned = own;
 }
 
 Authenticator *Authenticator::global()
@@ -86,11 +86,10 @@ void Authenticator::processLogInResponse(const DataResponse &response)
         self->lastLogTime = QDateTime::currentDateTime();
         emit loggedIn(self->loggedUser);
     } else {
-        const int code = response.code();
-        if (code > AuthenticationError::NoError && code < AuthenticationError::UnknownError)
-            emit logInFailed(static_cast<AuthenticationError::ErrorType>(code));
-        else
-            emit logInFailed(AuthenticationError::UnknownError);
+        int code = response.code();
+        if (code < AuthenticationError::NoError || code > AuthenticationError::UnknownError)
+            code = AuthenticationError::UnknownError;
+        emit logInFailed(AuthenticationError(response.text(), static_cast<AuthenticationError::ErrorType>(code)));
     }
 }
 

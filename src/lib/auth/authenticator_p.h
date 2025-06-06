@@ -12,7 +12,8 @@ namespace DataGate {
 class AuthenticatorPrivate
 {
 public:
-    AuthenticatorPrivate(Authenticator *q) : q_ptr(q) {}
+    AuthenticatorPrivate(Authenticator *q)
+        : q_ptr(q), loginController(nullptr), controllerOwned(false) {}
 
     Authenticator *q_ptr;
 
@@ -20,6 +21,7 @@ public:
     QDateTime lastLogTime;
 
     AbstractLoginManager *loginController;
+    bool controllerOwned;
 };
 
 } // namespace DataGate
