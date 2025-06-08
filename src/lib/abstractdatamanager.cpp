@@ -1,105 +1,105 @@
 #include "abstractdatamanager.h"
 
-#include <DataGate/dataquery.h>
-#include <DataGate/dataresponse.h>
-
 #include <Jsoner/object.h>
 #include <Jsoner/array.h>
 
+#include <DataGate/datarequest.h>
+#include <DataGate/dataresponse.h>
+
 namespace DataGate {
 
-void AbstractDataManager::fetchSearchSuggestions(const DataQuery &query, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::fetchSearchSuggestions(const DataRequest &request, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        fetchSomeSearchSuggestions(query, [](qint64, qint64) {}, onResponse);
+        fetchSomeSearchSuggestions(request, [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::fetchSearchSuggestions(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::fetchSearchSuggestions(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        fetchSomeSearchSuggestions(query, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
+        fetchSomeSearchSuggestions(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::fetchObjects(const DataQuery &query, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::fetchObjects(const DataRequest &request, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        fetchObjects(query, [](qint64, qint64) {}, onResponse);
+        fetchObjects(request, [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::fetchObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::fetchObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        fetchManyObjects(query, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
+        fetchManyObjects(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::fetchObject(const DataQuery &query, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::fetchObject(const DataRequest &request, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        fetchOneObject(query, [](qint64, qint64) {}, onResponse);
+        fetchOneObject(request, [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::fetchObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::fetchObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        fetchOneObject(query, onProgress, onResponse);
+        fetchOneObject(request, onProgress, onResponse);
 }
 
-void AbstractDataManager::addObject(const DataQuery &query, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::addObject(const DataRequest &request, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        addOneObject(query, [](qint64, qint64) {}, onResponse);
+        addOneObject(request, [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::addObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::addObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        addOneObject(query, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
+        addOneObject(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::editObject(const DataQuery &query, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::editObject(const DataRequest &request, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        editObject(query, [](qint64, qint64) {}, onResponse);
+        editObject(request, [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::editObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::editObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        editOneObject(query, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
+        editOneObject(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::deleteObject(const DataQuery &query, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::deleteObject(const DataRequest &request, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        deleteOneObject(query, [](qint64, qint64) {}, onResponse);
+        deleteOneObject(request, [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::deleteObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::deleteObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        deleteOneObject(query, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
+        deleteOneObject(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::deleteObjects(const DataQuery &query, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::deleteObjects(const DataRequest &request, const DataResponseCallback &onResponse)
 {
     if (!onResponse)
         return;
 
-    if (query.array().count() == 1)
-        deleteOneObject(query, [](qint64, qint64) {}, onResponse);
+    if (request.array().count() == 1)
+        deleteOneObject(request, [](qint64, qint64) {}, onResponse);
     else
-        deleteManyObjects(query, [](qint64, qint64) {}, onResponse);
+        deleteManyObjects(request, [](qint64, qint64) {}, onResponse);
 }
 
-void AbstractDataManager::deleteObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void AbstractDataManager::deleteObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
     if (!onResponse)
         return;
 
-    if (query.array().count() == 1)
-        deleteOneObject(query, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
+    if (request.array().count() == 1)
+        deleteOneObject(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
     else
-        deleteManyObjects(query, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
+        deleteManyObjects(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
 }
 
 } // namespace DataGate

@@ -8,7 +8,7 @@
 
 namespace DataGate {
 
-class DataQuery;
+class DataRequest;
 
 class TableModelPrivate;
 class DATAGATE_EXPORT TableModel : public Jsoner::TableModel
@@ -25,8 +25,8 @@ public:
     QVariant filter(const QString &name) const;
     void setFilter(const QString &name, const QVariant &value);
 
-    QVariantHash filters() const;
-    void setFilters(const QVariantHash &filters);
+    QVariantMap filters() const;
+    void setFilters(const QVariantMap &filters);
 
     QString sortField() const;
     Qt::SortOrder sortOrder() const;
@@ -39,17 +39,17 @@ public:
     QVariant parameter(const QString &name) const;
     void setParameter(const QString &name, const QVariant &value);
 
-    QVariantHash parameters() const;
-    void setParameters(const QVariantHash &parameters);
+    QVariantMap parameters() const;
+    void setParameters(const QVariantMap &parameters);
 
-    DataQuery dataQuery() const;
+    DataRequest request() const;
 
     AbstractDataManager *manager() const;
     void setManager(AbstractDataManager *controller);
 
 public slots:
     void get();
-    void get(const DataGate::DataQuery &query);
+    void get(const DataGate::DataRequest &request);
 
 signals:
     void fetchRequested();

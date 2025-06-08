@@ -14,8 +14,8 @@ Authenticator::Authenticator(QObject *parent)
 Authenticator::~Authenticator()
 {
     AuthenticatorPrivate *d = self();
-    if (d->controllerOwned)
-        delete d->loginController;
+    if (d->managerOwned)
+        delete d->loginManager;
 }
 
 Jsoner::Object Authenticator::loggedUser()
@@ -28,16 +28,16 @@ QDateTime Authenticator::lastLogInTime()
     return self()->lastLogTime;
 }
 
-AbstractLoginManager *Authenticator::loginController()
+AbstractLoginManager *Authenticator::loginManager()
 {
-    return self()->loginController;
+    return self()->loginManager;
 }
 
-void Authenticator::setLoginController(AbstractLoginManager *controller, bool own)
+void Authenticator::setLoginManager(AbstractLoginManager *manager, bool own)
 {
     AuthenticatorPrivate *d = self();
-    d->loginController = controller;
-    d->controllerOwned = own;
+    d->loginManager = manager;
+    d->managerOwned = own;
 }
 
 Authenticator *Authenticator::global()
@@ -49,15 +49,15 @@ void Authenticator::logIn(const QString &id, const QString &pass)
 {
     AuthenticatorPrivate *self = Authenticator::self();
 
-    AbstractLoginManager *controller = self->loginController;
-    if (!controller)
+    AbstractLoginManager *manager = self->loginManager;
+    if (!manager)
         return;
 
-    LoginQuery query;
-    query.setIdentifier(id);
-    query.setPassword(pass);
+    LoginRequest request;
+    request.setIdentifier(id);
+    request.setPassword(pass);
 
-    controller->logIn(query, [self](const DataResponse &response) {
+    manager->logIn(request, [self](const DataResponse &response) {
         self->q_ptr->processLogInResponse(response);
     });
 }
@@ -66,14 +66,14 @@ void Authenticator::logOut()
 {
     AuthenticatorPrivate *self = Authenticator::self();
 
-    AbstractLoginManager *controller = self->loginController;
-    if (!controller)
+    AbstractLoginManager *manager = self->loginManager;
+    if (!manager)
         return;
 
-    LoginQuery query;
-    query.setObject(self->loggedUser);
+    LoginRequest request;
+    request.setObject(self->loggedUser);
 
-    controller->logOut(query, [self](const DataResponse &response) {
+    manager->logOut(request, [self](const DataResponse &response) {
         self->q_ptr->processLogOutResponse(response);
     });
 }

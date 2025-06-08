@@ -3,14 +3,14 @@
 
 #include "tablemodel.h"
 
-#include <DataGate/dataquery.h>
+#include <DataGate/datarequest.h>
 
 namespace DataGate {
 
 class TableModelPrivate
 {
 public:
-    DataQuery query;
+    DataRequest request;
     bool running = false;
     AbstractDataManager *manager = nullptr;
 };

@@ -73,15 +73,15 @@ class DATAGATE_EXPORT Authenticator : public QObject
 public:
     ~Authenticator();
 
-    template<typename LoginController, typename... Args>
+    template<typename LoginManager, typename... Args>
     static void init(Args&&... args)
-    { setLoginController(new LoginController(std::forward<Args>(args)...), true); }
+    { setLoginManager(new LoginManager(std::forward<Args>(args)...), true); }
 
     static Jsoner::Object loggedUser();
     static QDateTime lastLogInTime();
 
-    static AbstractLoginManager *loginController();
-    static void setLoginController(AbstractLoginManager *controller, bool own = false);
+    static AbstractLoginManager *loginManager();
+    static void setLoginManager(AbstractLoginManager *manager, bool own = false);
 
     static Authenticator *global();
 

@@ -7,54 +7,55 @@ namespace DataGate {
 bool DataManager::hasFeature(Feature feature, AbstractDataClient *client) const
 {
     Q_UNUSED(feature);
-    return client != nullptr;
+    Q_UNUSED(client);
+    return false;
 }
 
-void DataManager::fetchSomeSearchSuggestions(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void DataManager::fetchSomeSearchSuggestions(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
-    Q_UNUSED(query);
+    Q_UNUSED(request);
     Q_UNUSED(onProgress);
     onResponse(DataResponse());
 }
 
-void DataManager::fetchManyObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void DataManager::fetchManyObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
-    Q_UNUSED(query);
+    Q_UNUSED(request);
     Q_UNUSED(onProgress);
     onResponse(DataResponse());
 }
 
-void DataManager::fetchOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void DataManager::fetchOneObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
-    Q_UNUSED(query);
+    Q_UNUSED(request);
     Q_UNUSED(onProgress);
     onResponse(DataResponse());
 }
 
-void DataManager::addOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void DataManager::addOneObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
-    Q_UNUSED(query);
+    Q_UNUSED(request);
     Q_UNUSED(onProgress);
     onResponse(DataResponse());
 }
 
-void DataManager::editOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void DataManager::editOneObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
-    Q_UNUSED(query);
+    Q_UNUSED(request);
     Q_UNUSED(onProgress);
     onResponse(DataResponse());
 }
 
-void DataManager::deleteOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void DataManager::deleteOneObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
-    Q_UNUSED(query);
+    Q_UNUSED(request);
     Q_UNUSED(onProgress);
     onResponse(DataResponse());
 }
 
-void DataManager::deleteManyObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse)
+void DataManager::deleteManyObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
-    Q_UNUSED(query);
+    Q_UNUSED(request);
     Q_UNUSED(onProgress);
     onResponse(DataResponse());
 }

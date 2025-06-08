@@ -7,7 +7,7 @@ target_headers(DataGate
         datagate.h
         global.h config.h
         abstractdataclient.h
-        abstractdatamanager.h dataquery.h dataresponse.h
+        abstractdatamanager.h datarequest.h dataresponse.h
         datamanager.h
         auth/authenticator.h auth/abstractloginmanager.h
         permission/permissionmanager.h
@@ -22,7 +22,7 @@ target_sources(DataGate
     PRIVATE
         debug.cpp
         abstractdataclient.cpp
-        abstractdatamanager.cpp dataquery.cpp dataresponse.cpp
+        abstractdatamanager.cpp datarequest.cpp dataresponse.cpp
         datamanager.cpp
         auth/authenticator.cpp auth/abstractloginmanager.cpp
         permission/permissionmanager.cpp

@@ -1,20 +1,20 @@
-#ifndef DATAGATE_ABSTRACTLOGINCONTROLLER_H
-#define DATAGATE_ABSTRACTLOGINCONTROLLER_H
+#ifndef DATAGATE_ABSTRACTLOGINMANAGER_H
+#define DATAGATE_ABSTRACTLOGINMANAGER_H
 
 #include <DataGate/global.h>
 #include <DataGate/abstractdatamanager.h>
-#include <DataGate/dataquery.h>
+#include <DataGate/datarequest.h>
 #include <DataGate/dataresponse.h>
 
 #include <QtCore/qvariant.h>
 
 namespace DataGate {
 
-class DATAGATE_EXPORT LoginQuery : public DataQuery
+class DATAGATE_EXPORT LoginRequest : public DataRequest
 {
 public:
-    LoginQuery() = default;
-    LoginQuery(const LoginQuery &other) = default;
+    LoginRequest() = default;
+    LoginRequest(const LoginRequest &other) = default;
 
     QString identifier() const { return parameter("identifier").toString(); }
     void setIdentifier(const QString &id) { setParameter("identifier", id); }
@@ -28,17 +28,17 @@ class DATAGATE_EXPORT AbstractLoginManager
 public:
     virtual ~AbstractLoginManager() = default;
 
-    void logIn(const QString &identifier, const QString &password, const DataQueryResponseCallback &callback);
-    void logIn(const LoginQuery &query, const DataQueryResponseCallback &callback);
+    void logIn(const QString &identifier, const QString &password, const DataResponseCallback &callback);
+    void logIn(const LoginRequest &request, const DataResponseCallback &callback);
 
-    void logOut(const DataQueryResponseCallback &callback);
-    void logOut(const LoginQuery &query, const DataQueryResponseCallback &callback);
+    void logOut(const DataResponseCallback &callback);
+    void logOut(const LoginRequest &request, const DataResponseCallback &callback);
 
 protected:
-    virtual void attemptLogIn(const LoginQuery &query, const DataQueryResponseCallback &callback) = 0;
-    virtual void attemptLogOut(const LoginQuery &query, const DataQueryResponseCallback &callback) = 0;
+    virtual void attemptLogIn(const LoginRequest &request, const DataResponseCallback &callback) = 0;
+    virtual void attemptLogOut(const LoginRequest &request, const DataResponseCallback &callback) = 0;
 };
 
 } // namespace DataGate
 
-#endif // DATAGATE_ABSTRACTLOGINCONTROLLER_H
+#endif // DATAGATE_ABSTRACTLOGINMANAGER_H

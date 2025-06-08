@@ -2,7 +2,7 @@
 #define DATAGATE_ABSTRACTDATACLIENT_H
 
 #include <DataGate/global.h>
-#include <DataGate/dataquery.h>
+#include <DataGate/datarequest.h>
 
 namespace DataGate {
 
@@ -16,7 +16,7 @@ public:
     virtual void setParameter(const QString &name, const QVariant &value) = 0;
 
 protected:
-    virtual DataQuery newQuery();
+    virtual DataRequest newRequest();
 };
 
 } // namespace DataGate

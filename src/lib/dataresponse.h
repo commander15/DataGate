@@ -22,6 +22,7 @@ public:
 
     DataResponse &operator=(const DataResponse &other);
 
+    bool hasCode() const;
     int code() const;
     void setCode(int code);
 

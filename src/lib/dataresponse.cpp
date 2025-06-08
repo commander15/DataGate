@@ -4,7 +4,7 @@
 #include <Jsoner/array.h>
 
 #include <QtCore/qstring.h>
-#include <QtCore/qvarianthash.h>
+#include <QtCore/qvariantmap.h>
 
 namespace DataGate {
 
@@ -23,7 +23,7 @@ public:
 
     int page = 0;
     int pageCount = 0;
-    QVariantHash dataHash;
+    QVariantMap dataMap;
     bool success = false;
 };
 
@@ -45,6 +45,11 @@ DataResponse &DataResponse::operator=(const DataResponse &other)
         d_ptr = other.d_ptr; // Shared pointer, no deep copy needed
     }
     return *this;
+}
+
+bool DataResponse::hasCode() const
+{
+    return d_ptr->code > 0;
 }
 
 int DataResponse::code() const
@@ -99,7 +104,7 @@ void DataResponse::setDetailedText(const QString &text)
 
 bool DataResponse::hasMessage() const
 {
-    return !d_ptr->title.isEmpty() || !d_ptr->text.isEmpty();
+    return !d_ptr->text.isEmpty();
 }
 
 bool DataResponse::hasObject() const
@@ -161,22 +166,25 @@ bool DataResponse::hasPaginationData() const
 
 bool DataResponse::hasData(const QString &name) const
 {
-    return d_ptr->dataHash.contains(name);
+    return d_ptr->dataMap.contains(name);
 }
 
 QVariant DataResponse::data(const QString &name) const
 {
-    return d_ptr->dataHash.value(name);
+    return d_ptr->dataMap.value(name);
 }
 
 void DataResponse::setData(const QString &name, const QVariant &value)
 {
-    d_ptr->dataHash.insert(name, value);
+    if (value.isValid())
+        d_ptr->dataMap.insert(name, value);
+    else if (d_ptr->dataMap.contains(name))
+        d_ptr->dataMap.remove(name);
 }
 
 QStringList DataResponse::dataNames() const
 {
-    return d_ptr->dataHash.keys();
+    return d_ptr->dataMap.keys();
 }
 
 bool DataResponse::isSuccess() const

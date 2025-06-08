@@ -13,15 +13,15 @@ class AuthenticatorPrivate
 {
 public:
     AuthenticatorPrivate(Authenticator *q)
-        : q_ptr(q), loginController(nullptr), controllerOwned(false) {}
+        : q_ptr(q), loginManager(nullptr), managerOwned(false) {}
 
     Authenticator *q_ptr;
 
     Jsoner::Object loggedUser;
     QDateTime lastLogTime;
 
-    AbstractLoginManager *loginController;
-    bool controllerOwned;
+    AbstractLoginManager *loginManager;
+    bool managerOwned;
 };
 
 } // namespace DataGate

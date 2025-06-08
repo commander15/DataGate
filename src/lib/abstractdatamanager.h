@@ -3,16 +3,11 @@
 
 #include <DataGate/global.h>
 
-#include <functional>
-
 namespace DataGate {
 
 class AbstractDataClient;
-class DataQuery;
+class DataRequest;
 class DataResponse;
-
-typedef std::function<void(qint64, qint64)> DataQueryProgressCallback;
-typedef std::function<void(const DataResponse &response)> DataQueryResponseCallback;
 
 class DATAGATE_EXPORT AbstractDataManager
 {
@@ -33,35 +28,35 @@ public:
 
     virtual bool hasFeature(Feature feature, AbstractDataClient *client) const = 0;
 
-    void fetchSearchSuggestions(const DataQuery &query, const DataQueryResponseCallback &onResponse);
-    void fetchSearchSuggestions(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
+    void fetchSearchSuggestions(const DataRequest &request, const DataResponseCallback &onResponse);
+    void fetchSearchSuggestions(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse);
 
-    void fetchObjects(const DataQuery &query, const DataQueryResponseCallback &onResponse);
-    void fetchObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
+    void fetchObjects(const DataRequest &request, const DataResponseCallback &onResponse);
+    void fetchObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse);
 
-    void fetchObject(const DataQuery &query, const DataQueryResponseCallback &onResponse);
-    void fetchObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
+    void fetchObject(const DataRequest &request, const DataResponseCallback &onResponse);
+    void fetchObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse);
 
-    void addObject(const DataQuery &query, const DataQueryResponseCallback &onResponse);
-    void addObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
+    void addObject(const DataRequest &request, const DataResponseCallback &onResponse);
+    void addObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse);
 
-    void editObject(const DataQuery &query, const DataQueryResponseCallback &onResponse);
-    void editObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
+    void editObject(const DataRequest &request, const DataResponseCallback &onResponse);
+    void editObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse);
 
-    void deleteObject(const DataQuery &query, const DataQueryResponseCallback &onResponse);
-    void deleteObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
+    void deleteObject(const DataRequest &request, const DataResponseCallback &onResponse);
+    void deleteObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse);
 
-    void deleteObjects(const DataQuery &query, const DataQueryResponseCallback &onResponse);
-    void deleteObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse);
+    void deleteObjects(const DataRequest &request, const DataResponseCallback &onResponse);
+    void deleteObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse);
 
 protected:
-    virtual void fetchSomeSearchSuggestions(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
-    virtual void fetchManyObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
-    virtual void fetchOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
-    virtual void addOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
-    virtual void editOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
-    virtual void deleteOneObject(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
-    virtual void deleteManyObjects(const DataQuery &query, const DataQueryProgressCallback &onProgress, const DataQueryResponseCallback &onResponse) = 0;
+    virtual void fetchSomeSearchSuggestions(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse) = 0;
+    virtual void fetchManyObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse) = 0;
+    virtual void fetchOneObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse) = 0;
+    virtual void addOneObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse) = 0;
+    virtual void editOneObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse) = 0;
+    virtual void deleteOneObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse) = 0;
+    virtual void deleteManyObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse) = 0;
 };
 
 } // namespace DataGate

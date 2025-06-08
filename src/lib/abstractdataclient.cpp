@@ -9,11 +9,11 @@ bool AbstractDataClient::hasParameter(const QString &name) const
     return parameter(name).isValid();
 }
 
-DataQuery AbstractDataClient::newQuery()
+DataRequest AbstractDataClient::newRequest()
 {
-    DataQuery query;
-    query.setClient(this);
-    return query;
+    DataRequest request;
+    request.setClient(this);
+    return request;
 }
 
 } // namespace DataGate

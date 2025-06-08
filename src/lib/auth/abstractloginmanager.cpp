@@ -2,27 +2,27 @@
 
 namespace DataGate {
 
-void AbstractLoginManager::logIn(const QString &identifier, const QString &password, const DataQueryResponseCallback &callback)
+void AbstractLoginManager::logIn(const QString &identifier, const QString &password, const DataResponseCallback &callback)
 {
-    LoginQuery query;
-    query.setIdentifier(identifier);
-    query.setPassword(password);
-    attemptLogIn(query, callback);
+    LoginRequest request;
+    request.setIdentifier(identifier);
+    request.setPassword(password);
+    attemptLogIn(request, callback);
 }
 
-void AbstractLoginManager::logIn(const LoginQuery &query, const DataQueryResponseCallback &callback)
+void AbstractLoginManager::logIn(const LoginRequest &request, const DataResponseCallback &callback)
 {
-    attemptLogIn(query, callback);
+    attemptLogIn(request, callback);
 }
 
-void AbstractLoginManager::logOut(const DataQueryResponseCallback &callback)
+void AbstractLoginManager::logOut(const DataResponseCallback &callback)
 {
-    attemptLogOut(LoginQuery(), callback);
+    attemptLogOut(LoginRequest(), callback);
 }
 
-void AbstractLoginManager::logOut(const LoginQuery &query, const DataQueryResponseCallback &callback)
+void AbstractLoginManager::logOut(const LoginRequest &request, const DataResponseCallback &callback)
 {
-    attemptLogOut(query, callback);
+    attemptLogOut(request, callback);
 }
 
 } // namespace DataGate
