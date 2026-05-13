@@ -2,16 +2,17 @@ cmake_minimum_required(VERSION 3.30)
 
 project(DataGate
     DESCRIPTION "Data handling toolkit for Qt"
-    VERSION     "3.0.0"
+    VERSION     "3.0.1"
     LANGUAGES   CXX C
 )
 
 # Project settings
 
-option(DATAGATE_BUILD_TESTS        OFF "Build DataGate tests")
-option(DATAGATE_BUILD_DOCS         OFF "Build DataGate documentation")
-option(DATAGATE_BUILD_TRANSLATIONS OFF "Build DataGate translations")
-option(DATAGATE_BUILD_EXAMPLES     OFF "Build DataGate Examples")
+option(DATAGATE_BUILD_TESTS        "Build DataGate tests"         OFF)
+option(DATAGATE_BUILD_DOCS         "Build DataGate documentation" OFF)
+option(DATAGATE_BUILD_TRANSLATIONS "Build DataGate translations"  OFF)
+option(DATAGATE_BUILD_EXAMPLES     "Build DataGate Examples"      OFF)
+option(DATAGATE_INSTALL            "Install DataGate"             ON)
 
 set(DATAGATE_LOCALES en fr)
 
@@ -49,13 +50,18 @@ endif()
 find_package(Qt6 REQUIRED COMPONENTS ${Qt_MODULES})
 
 qt_standard_project_setup(
-    REQUIRES 6.8.0
+    REQUIRES 6.5.0
     I18N_SOURCE_LANGUAGE      en
     I18N_TRANSLATED_LANGUAGES ${DATAGATE_LOCALES}
 )
 
-qt_policy(SET QTP0002 NEW)
-qt_policy(SET QTP0003 NEW)
+if (Qt6_VERSION VERSION_GREATER_EQUAL 6.6.0)
+    qt_policy(SET QTP0002 NEW)
+endif()
+
+if (Qt6_VERSION VERSION_GREATER_EQUAL 6.7.0)
+    qt_policy(SET QTP0003 NEW)
+endif()
 
 # Other dependencies
 include(cmake/Dependencies.cmake)

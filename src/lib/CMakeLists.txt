@@ -12,10 +12,12 @@ target_headers(DataGate
         auth/authenticator.h auth/abstractloginmanager.h
         permission/permissionmanager.h
         model/tablemodel.h
+        json/jsondatamanager.h
     PRIVATE
         debug_p.h
         auth/authenticator_p.h
         model/tablemodel_p.h
+        json/jsondatamanager.cpp
 )
 
 target_sources(DataGate
@@ -27,6 +29,7 @@ target_sources(DataGate
         auth/authenticator.cpp auth/abstractloginmanager.cpp
         permission/permissionmanager.cpp
         model/tablemodel.cpp
+        json/jsondatamanager.cpp
 )
 
 set_target_properties(DataGate PROPERTIES
@@ -51,15 +54,17 @@ target_compile_definitions(DataGate
 
 target_link_libraries(DataGate PUBLIC Qt::Core Jsoner::Jsoner)
 
-install(CODE "file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/include/DataGate)")
-
-install(TARGETS DataGate
-    EXPORT DataGateTargets
-    ARCHIVE        DESTINATION lib
-    LIBRARY        DESTINATION lib
-    RUNTIME        DESTINATION bin
-    PUBLIC_HEADER  DESTINATION include/DataGate
-    #PRIVATE_HEADER DESTINATION include/DataGate/private
-)
-
 generate_target_headers(DataGate FOLDER DataGate)
+
+if (DATAGATE_INSTALL)
+    install(CODE "file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/include/DataGate)")
+
+    install(TARGETS DataGate
+        EXPORT DataGateTargets
+        ARCHIVE        DESTINATION lib
+        LIBRARY        DESTINATION lib
+        RUNTIME        DESTINATION bin
+        PUBLIC_HEADER  DESTINATION include/DataGate
+        PRIVATE_HEADER DESTINATION include/DataGate/private
+    )
+endif()

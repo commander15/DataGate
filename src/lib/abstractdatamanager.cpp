@@ -23,7 +23,7 @@ void AbstractDataManager::fetchSearchSuggestions(const DataRequest &request, con
 void AbstractDataManager::fetchObjects(const DataRequest &request, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        fetchObjects(request, [](qint64, qint64) {}, onResponse);
+        fetchManyObjects(request, [](qint64, qint64) {}, onResponse);
 }
 
 void AbstractDataManager::fetchObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
@@ -41,7 +41,7 @@ void AbstractDataManager::fetchObject(const DataRequest &request, const DataResp
 void AbstractDataManager::fetchObject(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
 {
     if (onResponse)
-        fetchOneObject(request, onProgress, onResponse);
+        fetchOneObject(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
 }
 
 void AbstractDataManager::addObject(const DataRequest &request, const DataResponseCallback &onResponse)
@@ -85,10 +85,13 @@ void AbstractDataManager::deleteObjects(const DataRequest &request, const DataRe
     if (!onResponse)
         return;
 
-    if (request.array().count() == 1)
-        deleteOneObject(request, [](qint64, qint64) {}, onResponse);
-    else
+    if (request.array().count() == 1) {
+        DataRequest newRequest(request);
+        newRequest.setObject(request.object());
+        deleteOneObject(newRequest, [](qint64, qint64) {}, onResponse);
+    } else {
         deleteManyObjects(request, [](qint64, qint64) {}, onResponse);
+    }
 }
 
 void AbstractDataManager::deleteObjects(const DataRequest &request, const DataRequestCallback &onProgress, const DataResponseCallback &onResponse)
@@ -96,10 +99,13 @@ void AbstractDataManager::deleteObjects(const DataRequest &request, const DataRe
     if (!onResponse)
         return;
 
-    if (request.array().count() == 1)
-        deleteOneObject(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
-    else
+    if (request.array().count() == 1) {
+        DataRequest newRequest(request);
+        newRequest.setObject(request.object());
+        deleteOneObject(newRequest, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
+    } else {
         deleteManyObjects(request, onProgress ? onProgress : [](qint64, qint64) {}, onResponse);
+    }
 }
 
 } // namespace DataGate

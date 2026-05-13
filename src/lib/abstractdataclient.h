@@ -13,7 +13,7 @@ public:
 
     virtual bool hasParameter(const QString &name) const;
     virtual QVariant parameter(const QString &name) const = 0;
-    virtual void setParameter(const QString &name, const QVariant &value) = 0;
+    virtual void setParameter(const QString &name, const QVariant &value);
 
 protected:
     virtual DataRequest newRequest();
