@@ -13,6 +13,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Jsoner)
 
-if (NOT TARGET Jsoner)
+if (NOT TARGET Jsoner::Jsoner)
     add_library(Jsoner::Jsoner ALIAS Jsoner)
 endif()
